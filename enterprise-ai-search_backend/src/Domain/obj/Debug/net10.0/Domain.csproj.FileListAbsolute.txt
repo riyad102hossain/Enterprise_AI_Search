@@ -1,0 +1,12 @@
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/bin/Debug/net10.0/Domain.deps.json
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/bin/Debug/net10.0/Domain.dll
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/bin/Debug/net10.0/Domain.pdb
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.AssemblyInfoInputs.cache
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.AssemblyInfo.cs
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.csproj.CoreCompileInputs.cache
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.sourcelink.json
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.dll
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/refint/Domain.dll
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/Domain.pdb
+/media/riyad-hossain/B4A0D6F7A0D6BED42/new_work/Enterprise_AI_Search/enterprise-ai-search_backend/src/Domain/obj/Debug/net10.0/ref/Domain.dll
