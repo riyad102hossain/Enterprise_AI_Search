@@ -84,6 +84,18 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User", "Admin"));
 });
 
+// 1. CORS Policy Registration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextJs", policy =>
+    {
+        policy.SetIsOriginAllowed(origin => true)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -94,6 +106,9 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/v1.json", "Enterprise AI Search API v1");
     });
 }
+
+// 2. Enable CORS Middleware (Must be before Authentication/Authorization)
+app.UseCors("AllowNextJs");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
