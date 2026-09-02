@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import api from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Added useRouter
 import { Sparkles, Mail, Lock, LogIn, AlertCircle, ArrowLeft } from 'lucide-react';
 
 export default function LoginPage() {
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const router = useRouter(); // Initialize router
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +23,16 @@ export default function LoginPage() {
     try {
       const response = await api.post('/Auth/login', { email, password });
       const { token, name, email: userEmail, role } = response.data;
+      
+      // Update Auth state
       login(token, { name, email: userEmail, role });
+
+      // Direct Role-based Redirection Logic
+      if (role === 'Admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Invalid login credentials');
     } finally {

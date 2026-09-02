@@ -69,11 +69,17 @@ export default function WorkspaceDetailPage() {
 
     setUploading(true);
     const formData = new FormData();
+    
+    // UploadDocumentDto mapping
     formData.append('File', file);
+    formData.append('file', file); // Fallback for case sensitivity
+    formData.append('workspaceId', workspaceId); // DTO requires WorkspaceId in form-data
 
     try {
-      const res = await api.post(`/Documents/upload?workspaceId=${workspaceId}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await api.post('/Documents/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       const newDoc = res.data;
@@ -81,9 +87,10 @@ export default function WorkspaceDetailPage() {
 
       // Automatically trigger processing
       await processDocument(newDoc.id);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Upload failed:', err);
-      alert('Failed to upload document');
+      const errorMsg = err.response?.data?.message || 'Failed to upload document';
+      alert(`Upload Failed: ${errorMsg}`);
     } finally {
       setUploading(false);
       e.target.value = '';
