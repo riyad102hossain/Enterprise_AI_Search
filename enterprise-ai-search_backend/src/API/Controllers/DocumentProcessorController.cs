@@ -17,16 +17,10 @@ public class DocumentProcessorController : ControllerBase
     }
 
     [HttpPost("process/{documentId:guid}")]
-    public async Task<IActionResult> Process(Guid documentId)
-    {
-        try
-        {
-            await _processorService.ProcessDocumentAsync(documentId);
-            return Ok(new { message = "Document processed and indexed successfully." });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-    }
+public async Task<IActionResult> Process(Guid documentId)
+{
+    await _processorService.ProcessDocumentAsync(documentId);
+    return Ok(new { message = "Document processed and indexed successfully." });
+}
+
 }

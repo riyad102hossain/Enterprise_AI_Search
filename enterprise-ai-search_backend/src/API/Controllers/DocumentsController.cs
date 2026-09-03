@@ -21,20 +21,13 @@ public class DocumentsController : ControllerBase
     private Guid GetUserId() =>
         Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-    [HttpPost("upload")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Upload([FromForm] UploadDocumentDto dto)
-    {
-        try
-        {
-            var result = await _documentService.UploadAsync(dto, GetUserId());
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-    }
+   [HttpPost("upload")]
+[Consumes("multipart/form-data")]
+public async Task<IActionResult> Upload([FromForm] UploadDocumentDto dto)
+{
+    var result = await _documentService.UploadAsync(dto, GetUserId());
+    return Ok(result);
+}
 
     [HttpGet("workspace/{workspaceId:guid}")]
     public async Task<IActionResult> GetByWorkspace(Guid workspaceId)

@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import api from '@/services/api';
-import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Plus, Folder, LogOut, Shield } from 'lucide-react';
+import api from '@/services/api';
+import SidebarLayout from '@/components/Sidebar';
+import { Plus, Folder } from 'lucide-react';
 
 interface Workspace {
   id: string;
@@ -21,7 +21,6 @@ export default function DashboardPage() {
   const [description, setDescription] = useState('');
   const [creating, setCreating] = useState(false);
 
-  const { user, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -59,143 +58,110 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
-      {/* Top Navbar */}
-      <nav className="flex items-center justify-between border-b border-gray-800 bg-gray-950 px-6 py-4">
-        <div className="flex items-center space-x-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 font-bold text-white">
-            AI
-          </div>
-          <span className="text-xl font-bold tracking-wide">Enterprise RAG</span>
-        </div>
-
-        <div className="flex items-center space-x-4">
-          {user?.role === 'Admin' && (
-            <button
-              onClick={() => router.push('/admin')}
-              className="flex items-center space-x-1 rounded-md bg-purple-600/20 px-3 py-1.5 text-sm text-purple-400 hover:bg-purple-600/30 border border-purple-500/30"
-            >
-              <Shield className="h-4 w-4" />
-              <span>Admin Panel</span>
-            </button>
-          )}
-
-          <div className="text-right">
-            <p className="text-sm font-medium">{user?.name}</p>
-            <p className="text-xs text-gray-400">{user?.email}</p>
-          </div>
-
-          <button
-            onClick={logout}
-            className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-red-400 transition"
-            title="Logout"
-          >
-            <LogOut className="h-5 w-5" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Main Container */}
-      <main className="mx-auto max-w-7xl p-8">
-        <div className="mb-8 flex items-center justify-between">
+    <SidebarLayout>
+      <div className="p-8 max-w-7xl mx-auto space-y-8">
+        {/* Main Header Container */}
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Your Workspaces</h1>
-            <p className="mt-1 text-sm text-gray-400">Select a workspace to manage documents and ask AI questions.</p>
+            <h1 className="text-2xl font-bold text-white">Your Workspaces</h1>
+            <p className="mt-1 text-xs text-slate-400">
+              Select a workspace to manage documents and ask AI questions.
+            </p>
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center space-x-2 rounded-lg bg-blue-600 px-4 py-2 font-medium hover:bg-blue-500 transition"
+            className="flex items-center space-x-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-medium text-white hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/20"
           >
-            <Plus className="h-5 w-5" />
+            <Plus className="h-4 w-4" />
             <span>New Workspace</span>
           </button>
         </div>
 
         {/* Loading State */}
         {loading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="h-36 animate-pulse rounded-xl bg-gray-800/50 border border-gray-800"></div>
+              <div key={n} className="h-36 animate-pulse rounded-2xl bg-slate-900/50 border border-slate-800"></div>
             ))}
           </div>
         ) : workspaces.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-800 py-16 text-center">
-            <Folder className="h-12 w-12 text-gray-600 mb-3" />
-            <h3 className="text-lg font-medium text-gray-300">No workspaces found</h3>
-            <p className="mt-1 text-sm text-gray-500">Create your first workspace to start uploading documents.</p>
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/30 py-16 text-center">
+            <Folder className="h-12 w-12 text-slate-600 mb-3" />
+            <h3 className="text-sm font-semibold text-slate-300">No workspaces found</h3>
+            <p className="mt-1 text-xs text-slate-500">Create your first workspace to start uploading documents.</p>
           </div>
         ) : (
           /* Workspaces Grid */
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {workspaces.map((ws) => (
               <div
                 key={ws.id}
                 onClick={() => router.push(`/dashboard/workspace/${ws.id}`)}
-                className="group cursor-pointer rounded-xl border border-gray-800 bg-gray-950 p-6 transition hover:border-blue-500/50 hover:bg-gray-900/80 shadow-lg"
+                className="group cursor-pointer rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5 transition hover:border-indigo-500/50 hover:bg-slate-900 shadow-xl"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/10 text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition">
                     <Folder className="h-5 w-5" />
                   </div>
-                  <span className="text-xs text-gray-500">{new Date(ws.createdAt).toLocaleDateString()}</span>
+                  <span className="text-[11px] text-slate-500">{new Date(ws.createdAt).toLocaleDateString()}</span>
                 </div>
-                <h2 className="mt-4 text-lg font-semibold text-gray-100 group-hover:text-blue-400 transition">{ws.name}</h2>
-                <p className="mt-1 text-sm text-gray-400 line-clamp-2">{ws.description || 'No description provided.'}</p>
+                <h2 className="mt-4 text-sm font-bold text-slate-200 group-hover:text-white transition">{ws.name}</h2>
+                <p className="mt-1 text-xs text-slate-400 line-clamp-2">{ws.description || 'No description provided.'}</p>
               </div>
             ))}
           </div>
         )}
-      </main>
 
-      {/* Create Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-md rounded-xl border border-gray-800 bg-gray-950 p-6 shadow-2xl">
-            <h2 className="text-xl font-bold">Create New Workspace</h2>
-            <form onSubmit={handleCreateWorkspace} className="mt-4 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300">Workspace Name</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-800 bg-gray-900 p-2.5 text-gray-100 focus:border-blue-500 focus:outline-none"
-                  placeholder="e.g. HR Documents or Financial Reports"
-                />
-              </div>
+        {/* Create Modal */}
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl space-y-4">
+              <h2 className="text-base font-bold text-white">Create New Workspace</h2>
+              <form onSubmit={handleCreateWorkspace} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Workspace Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-xl border border-slate-800 bg-slate-950 p-2.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
+                    placeholder="e.g. HR Documents or Financial Reports"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300">Description</label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-800 bg-gray-900 p-2.5 text-gray-100 focus:border-blue-500 focus:outline-none"
-                  rows={3}
-                  placeholder="Optional description..."
-                />
-              </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Description</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full rounded-xl border border-slate-800 bg-slate-950 p-2.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
+                    rows={3}
+                    placeholder="Optional description..."
+                  />
+                </div>
 
-              <div className="flex justify-end space-x-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="rounded-lg bg-gray-800 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={creating}
-                  className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-500 disabled:opacity-50"
-                >
-                  {creating ? 'Creating...' : 'Create Workspace'}
-                </button>
-              </div>
-            </form>
+                <div className="flex justify-end space-x-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className="rounded-xl px-4 py-2 text-xs text-slate-400 hover:text-white transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={creating}
+                    className="rounded-xl bg-indigo-600 px-4 py-2 text-xs text-white font-medium hover:bg-indigo-500 disabled:opacity-50 transition shadow-lg shadow-indigo-600/20"
+                  >
+                    {creating ? 'Creating...' : 'Create Workspace'}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </SidebarLayout>
   );
 }
