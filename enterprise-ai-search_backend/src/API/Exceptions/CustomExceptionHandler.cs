@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace YourProjectName.Exceptions;
+namespace API.Exceptions;
 
 public class CustomExceptionHandler : IExceptionHandler
 {

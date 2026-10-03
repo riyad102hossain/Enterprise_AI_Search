@@ -6,10 +6,14 @@ using Microsoft.IdentityModel.Tokens;
 using Application.Interfaces;
 using Infrastructure.Services;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using API.Exceptions; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddOpenApi(options =>
 {
@@ -98,6 +102,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// 2. Exception Handler Middleware
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -107,11 +114,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// 2. Enable CORS Middleware (Must be before Authentication/Authorization)
 app.UseCors("AllowNextJs");
 
 app.UseHttpsRedirection();
-app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
