@@ -1,6 +1,6 @@
 # Enterprise AI Search & RAG Platform
 
-An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to process, index, and query internal documents using AI. Built with a decoupled Architecture using **.NET 8 (Clean Architecture)** for the backend and **Next.js 14** for the frontend.
+An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to process, index, and query internal documents using AI. Built with a decoupled Architecture using **.NET 10 (Clean Architecture)** for the backend and **Next.js 14** for the frontend.
 
 ---
 
@@ -9,7 +9,7 @@ An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to pr
 * **Authentication & Authorization**: Secure User Registration and Login with JWT Bearer Authentication and Role-based Access Control (Admin / User).
 * **Workspace Management**: Multi-tenant or user-isolated workspaces to organize documents separately.
 * **Document Management**: File upload, PDF text extraction, and background document chunking.
-* **Global Exception Handling**: Centralized exception management using .NET 8 `IExceptionHandler` returning standardized Problem Details.
+* **Global Exception Handling**: Centralized exception management using .NET 10 `IExceptionHandler` returning standardized Problem Details.
 * **Modern UI & Dashboard**: Clean UI built with Next.js App Router, Tailwind CSS, and Lucide Icons with a dark-themed responsive layout.
 * **Admin Control Center**: Dedicated admin interfaces to monitor platform metrics, users, and overall systems.
 
@@ -44,14 +44,14 @@ All REST endpoints: Admin, Auth, Chat, DocumentProcessor, Documents and Workspac
 
 ## 🏗️ System Architecture & Folder Structure
 
-### 1. Backend (.NET 8 Clean Architecture)
+### 1. Backend (.NET 10 Clean Architecture)
 
 ```
 
 src/
 ├── API/                   # Presentation Layer (Controllers, Middlewares, Exception Handlers)
 │   ├── Controllers/       # AuthController, DocumentsController, WorkspacesController, etc.
-│   └── Exceptions/        # CustomExceptionHandler (.NET 8 IExceptionHandler)
+│   └── Exceptions/        # CustomExceptionHandler (.NET 10 IExceptionHandler)
 ├── Application/           # Application Layer (DTOs, Interfaces, Business Logic)
 ├── Domain/                # Domain Layer (Core Entities, Value Objects)
 ├── Infrastructure/        # Infrastructure Layer (DbContext, Services, Document Processors)
@@ -75,7 +75,7 @@ src/
 ## 🛠️ Tech Stack
 
 ### Backend
-* **Framework**: .NET 8 Web API
+* **Framework**: .NET 10 Web API
 * **Architecture**: Clean Architecture (Onion Architecture)
 * **Database**: PostgreSQL / Entity Framework Core (EF Core)
 * **Authentication**: JWT (JSON Web Tokens)
@@ -93,7 +93,7 @@ src/
 ## ⚙️ Getting Started
 
 ### Prerequisites
-* .NET 8 SDK
+* .NET 10 SDK
 * Node.js (v18+ recommended)
 * PostgreSQL Database
 
