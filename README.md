@@ -15,6 +15,33 @@ An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to pr
 
 ---
 
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](docs/screenshots/landing.png)
+
+### Workspaces
+Users organize their documents into separate workspaces.
+
+![Workspaces](docs/screenshots/workspaces.png)
+
+### Workspace Documents & AI Chat
+Upload PDFs to a workspace and ask questions answered from the document context.
+
+![Workspace Documents & AI Chat](docs/screenshots/workspace-chat.png)
+
+### Admin Dashboard
+Platform metrics and registered user management (role changes, deletion).
+
+![Admin Dashboard](docs/screenshots/admin-dashboard.png)
+
+### API Documentation (Swagger)
+All REST endpoints: Admin, Auth, Chat, DocumentProcessor, Documents and Workspaces.
+
+![Swagger API](docs/screenshots/swagger-api.png)
+
+---
+
 ## 🏗️ System Architecture & Folder Structure
 
 ### 1. Backend (.NET 8 Clean Architecture)
