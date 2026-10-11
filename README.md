@@ -1,6 +1,6 @@
 # Enterprise AI Search & RAG Platform
 
-An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to process, index, and query internal documents using AI. Built with a decoupled Architecture using **.NET 10 (Clean Architecture)** for the backend and **Next.js 14** for the frontend.
+An Enterprise-grade Retrieval-Augmented Generation (RAG) platform designed to process, index, and query internal documents using AI. Built with a decoupled Architecture using **.NET 10 (Clean Architecture)** for the backend and **Next.js 16** for the frontend.
 
 ---
 
@@ -57,15 +57,16 @@ src/
 ├── Infrastructure/        # Infrastructure Layer (DbContext, Services, Document Processors)
 └── Shared/                # Cross-cutting Concerns & Helpers
 ```
-### 2. Frontend (Next.js 14 App Router)
+### 2. Frontend (Next.js 16 App Router)
 ```
 src/
 ├── app/
 │   ├── admin/             # Admin Panel & Management Pages
 │   ├── dashboard/         # Workspaces and Dashboard Page
 │   │   └── workspace/[id]/ # Individual Workspace & AI Document Viewer Page
-│   ├── login/             # Authentication Pages
-│   └── register/
+│   └── (auth)/            # Authentication Pages
+│       ├── login/
+│       └── register/
 ├── components/            # Reusable UI Components (Sidebar, Layouts, Modals)
 ├── context/               # React Context Providers (AuthContext)
 └── services/              # API Client (Axios Instance)
@@ -82,9 +83,9 @@ src/
 * **PDF Processing**: UglyToad.PdfPig
 
 ### Frontend
-* **Framework**: Next.js 14 (App Router)
+* **Framework**: Next.js 16 (App Router) with React 19
 * **Language**: TypeScript
-* **Styling**: Tailwind CSS
+* **Styling**: Tailwind CSS v4
 * **Icons**: Lucide React
 * **HTTP Client**: Axios
 
@@ -94,7 +95,7 @@ src/
 
 ### Prerequisites
 * .NET 10 SDK
-* Node.js (v18+ recommended)
+* Node.js (v20.9+ required by Next.js 16)
 * PostgreSQL Database
 
 ---
@@ -103,19 +104,20 @@ src/
 
 1. Navigate to the backend directory:
 ```
-   cd enterprise-ai-search-backend/src/API
+   cd enterprise-ai-search_backend/src/API
 ```
 
 2. Configure appsettings.json or appsettings.Development.json with your database connection string and JWT key:
 ```
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Host=localhost;Database=EnterpriseAiSearch;Username=postgres;Password=your_password"
+       "DefaultConnection": "Host=localhost;Port=5432;Database=enterprise_ai_search;Username=postgres;Password=your_password"
      },
      "Jwt": {
-       "Key": "YourSuperSecretKeyForJwtSigningHere_32BytesMin!",
-       "Issuer": "EnterpriseAiSearch",
-       "Audience": "EnterpriseAiSearchUsers"
+       "Secret": "YourSuperSecretKeyForJwtSigningHere_32BytesMin!",
+       "Issuer": "EnterpriseAiSearchAPI",
+       "Audience": "EnterpriseAiSearchClient",
+       "ExpiryInHours": 12
      }
    }
 ```
@@ -128,7 +130,8 @@ src/
 4. Start the backend server:
 ```
    dotnet run
-   The API server will run at https://localhost:7123 / http://localhost:5000.
+   The API server will run at http://localhost:5106 (https://localhost:7037 with the https profile).
+   Swagger UI: http://localhost:5106/swagger
 ```
 ---
 
@@ -145,7 +148,7 @@ src/
 
 3. Set up environment variables in a .env.local file:
 ```
-   NEXT_PUBLIC_API_BASE_URL=http://localhost:5108/api
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:5106/api
 ```
 4. Start the Next.js development server:
 ```
