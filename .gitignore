@@ -1,2 +1,6 @@
 .env
 appsettings.json
+
+# .NET build output
+bin/
+obj/
